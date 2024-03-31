@@ -70,6 +70,21 @@ class ExperimentStats:
         self.Max_GR_avg = None
         self.Avg_GR_avg = None
 
+        # Unsuccessful runs
+        self.nonSuc = None
+        self.nonMin_NI = None
+        self.nonMax_NI = None
+        self.nonAvg_NI = None
+        self.nonSigma_NI = None
+        self.nonAvg_F_found = None
+        self.nonSigma_F_found = None
+        self.nonMax_F_found = None
+
+        self.Avg_NI_loose = None
+        self.Sigma_NI_loose = None
+        self.Avg_Num_loose = None
+        self.Sigma_Num_loose = None
+
     def add_run(self, run: RunStats, run_i):
         self.runs[run_i] = run
 
@@ -82,11 +97,31 @@ class ExperimentStats:
         self.__calculate_rr_stats(successful_runs)
         self.__calculate_teta_stats(successful_runs)
 
+        self.calculate_non_successful_runs_stats()
+
+        self.__calculate_loose_stats(successful_runs)
+
         if self.params[0] != 'FconstALL':
             self.__calculate_s_stats(successful_runs)
             self.__calculate_i_stats(successful_runs)
             self.__calculate_gr_stats(successful_runs)
 
+    def calculate_non_successful_runs_stats(self):
+        non_successful_runs = [run for run in self.runs if not run.is_successful]
+        non_successful_count = len(non_successful_runs)
+
+        if non_successful_count > 0:
+            non_nis = [run.nonAvg_NI for run in non_successful_runs]
+            self.nonSuc = non_successful_count / NR
+            self.nonMin_NI = min(non_nis)
+            self.nonMax_NI = max(non_nis)
+            self.nonAvg_NI = np.mean(non_nis)
+            self.nonSigma_NI = np.std(non_nis)
+
+            non_founds = [run.nonAvg_F_found for run in non_successful_runs]
+            self.nonAvg_F_found = np.mean(non_founds)
+            self.nonSigma_F_found = np.std(non_founds)
+            self.nonMax_F_found = max(non_founds)
 
     def __calculate_convergence_stats(self, runs: list[RunStats]):
         NIs = [run.NI for run in runs]

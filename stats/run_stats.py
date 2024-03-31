@@ -48,6 +48,16 @@ class RunStats:
         self.NI_loose = 0
         self.Num_loose = 0
 
+        # Unsuccessful runs
+        self.nonSuc = None
+        self.nonMin_NI = None
+        self.nonMax_NI = None
+        self.nonAvg_NI = None
+        self.nonSigma_NI = None
+        self.nonAvg_F_found = None
+        self.nonSigma_F_found = None
+        self.nonMax_F_found = None
+
     def update_stats_for_generation(self, gen_stats: GenerationStats, gen_i):
         # Reproduction Rate
         if self.RR_min is None or gen_stats.reproduction_rate < self.RR_min:
@@ -111,6 +121,17 @@ class RunStats:
         if gen_stats.optimal_individual_lost:
             self.Num_loose += 1
             self.NI_loose = gen_i
+
+        # Update for unsuccessful runs
+        if not gen_stats.population.is_successful:
+            self.nonSuc = gen_stats.nonSuc
+            self.nonMin_NI = gen_stats.nonMin_NI
+            self.nonMax_NI = gen_stats.nonMax_NI
+            self.nonAvg_NI = gen_stats.nonAvg_NI
+            self.nonSigma_NI = gen_stats.nonSigma_NI
+            self.nonAvg_F_found = gen_stats.nonAvg_F_found
+            self.nonSigma_F_found = gen_stats.nonSigma_F_found
+            self.nonMax_F_found = gen_stats.nonMax_F_found
 
     def update_final_stats(self, gen_stats: GenerationStats, gen_i):
         if self.param_names[0] != 'FconstALL':
