@@ -27,7 +27,8 @@ RUN_STATS_NAMES = [
     'I_min', 'NI_I_min', 'I_max', 'NI_I_max', 'I_avg',
     's_min', 'NI_s_min', 's_max', 'NI_s_max', 's_avg',
     'GR_early', 'GR_late', 'NI_GR_late', 'GR_avg',
-    'NI_loose', 'Num_loose'
+    'NI_loose', 'Num_loose', 'nonSuc', 'nonMin_NI', 'nonMax_NI', 'nonAvg_NI', 'nonSigma_NI',
+    'nonAvg_F_found', 'nonSigma_F_found', 'nonMax_F_found'
 ]
 EXP_STATS_NAMES = [
     'Suc', 'N_Suc', 'Min_NI', 'Max_NI', 'Avg_NI', 'Sigma_NI',
@@ -49,7 +50,11 @@ EXP_STATS_NAMES = [
     
     'Min_GR_early', 'Max_GR_early', 'Avg_GR_early',
     'Min_GR_late', 'Max_GR_late', 'Avg_GR_late',
-    'Min_GR_avg', 'Max_GR_avg', 'Avg_GR_avg'
+    'Min_GR_avg', 'Max_GR_avg', 'Avg_GR_avg',
+
+    'nonSuc', 'nonMin_NI', 'nonMax_NI', 'nonAvg_NI', 'nonSigma_NI',
+    'nonAvg_F_found', 'nonSigma_F_found', 'nonMax_F_found',
+    'Avg_NI_loose', 'Sigma_NI_loose', 'Avg_Num_loose', 'Sigma_Num_loose'
 ]
 FCONSTALL_RUN_STATS_NAMES = [
     'NI',
